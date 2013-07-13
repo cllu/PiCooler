@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container" style="width:400px">
+
+  <div id="status" style="text-align:center">
+  <h3>Temparature: <span id="temp"></span></h3>
+  <h3>Humidity: <span id="humidity"></span></h3>
+  </div>
+  
+  <div id="buttons" style="text-align:center">
+    <p><button id="btn-light" class="btn btn-large">Light</button><br/></p>
+    <p><button id="btn-aircon" class="btn btn-large">AirConditioner</button></p>
+  </div>
+  
+  <div id="auto" style="text-align:center">
+  <p>Enable autocontrol and leave it alone</p>
+  <p><button id="btn-auto" class="btn btn-large">AutoControl</button></p>
+  </div>
+  
+</div>
+
+<script>
+  updateStatus();
+  setInterval(updateStatus, 20000);
+  $("#btn-aircon").click(function() {toggleSwitch("aircon")});
+  $("#btn-light").click(function() {toggleSwitch("light")});
+  $("#btn-auto").click(function() {toggleSwitch("auto")});
+
+  function toggleSwitch(item) {
+     $btn = $("#btn-" + item);
+     current = $btn.hasClass("btn-primary");
+     if (current == true) {
+       $.post("/switch", {item: item, operation:"off"}, function(data) {
+         if (data.status == "succeed") {
+           $btn.removeClass("btn-primary");
+	 } else {
+	   console.log("failed", data.error);
+	 }
+      });
+    } else {
+        $.post("/switch", {item: item, operation:"on"}, function(data) {
+         if (data.status == "succeed") {
+           $btn.addClass("btn-primary");
+	 } else {
+	   console.log("failed", data.error);
+	 }
+      });
+   
+    } 
+  }
+
+  function updateStatus() {
+    $.getJSON('/status', function(data) {
+      if (data.light == 0) {
+          $("#btn-light").removeClass("btn-primary");
+      } else {
+          $("#btn-light").addClass("btn-primary");
+      }
+      if (data.aircon == 0) {
+          $("#btn-aircon").removeClass("btn-primary");
+      } else {
+          $("#btn-aircon").addClass("btn-primary");
+      }
+
+      if (data.temp != null) {
+          $("#temp").html(data.temp);
+          $("#humidity").html(data.humidity);
+      }
+    });
+  }
+</script>
+{% endblock %}

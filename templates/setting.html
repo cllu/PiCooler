@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container" style="width:400px">
+
+  <form action="/setting" method="POST">
+  <label>Min Temp:</label>
+  <input name="temp_min" type="text" placeholder="make sure it is valid"value={{ settings["temp_min"] }}>
+
+  <label>Max Temp:</label>
+  <input name="temp_max" type="text" placeholder="make sure it is valid" value="{{ settings["temp_max"] }}">
+
+  <button type="submit" class="btn">Save</button>
+  </form>
+</div>
+{% endblock %}
