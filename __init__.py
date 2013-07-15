@@ -19,8 +19,8 @@ GPIO.setup(LIGHT_PORT, GPIO.OUT)
 # air conditioner
 GPIO.setup(AIRCON_PORT, GPIO.OUT)
 
-GPIO.output(LIGHT_PORT, GPIO.LOW)
-GPIO.output(AIRCON_PORT, GPIO.LOW)
+#GPIO.output(LIGHT_PORT, GPIO.LOW)
+#GPIO.output(AIRCON_PORT, GPIO.LOW)
 # the DHT
 #GPIO.setup(25, GPIO.IN)
  
@@ -47,7 +47,8 @@ def get_dht(port):
     
 @app.route("/")
 def index():
-    return render_template("index.html")
+    settings = json.load(open(setting_fname))
+    return render_template("index.html", settings=settings)
 
 @app.route("/status")
 def status():
@@ -109,7 +110,7 @@ def setting():
         temp_min = request.form["temp_min"]
         temp_max = request.form["temp_max"]
 
-        json.dump({"auto_mode:": auto_mode,
+        json.dump({"auto_mode": auto_mode,
                    "temp_min": temp_min,
                    "temp_max": temp_max}, open(setting_fname, 'w'))
         return "Done"
@@ -118,13 +119,28 @@ def setting():
 def cron():
     settings = json.load(open(setting_fname))
     if settings["auto_mode"]:
-        temp, humidity = get_dht(DHT_PORT)
-        if temp < settings["temp_min"] and GPIO.input(AIRCON_PORT):
-            GPIO.output(AIRCON_PORT, GPIO.LOW)
-        if temp > settings["temp_max"] and not GPIO.input(AIRCON_PORT):
-            GPIO.output(AIRCON_PORT, GPIO.HIGH)
+        out = ""
+        max_attemp = 7
+        while (max_attemp > 0):
+            max_attemp -= 1
+            temp, humidity = get_dht(DHT_PORT)
+            if temp and humidity:
+                break
+        if max_attemp == 0:
+            return "Cannot get corrent temp this time."
+        out += str(temp) + ',' + str(humidity)
+        out += str(settings["temp_min"]) + "," + str(settings["temp_max"])
+        out += "\ncurrent_status:" + str(GPIO.input(AIRCON_PORT)) + "\n"
 
-    return "Done"
+        if temp < float(settings["temp_min"]) and GPIO.input(AIRCON_PORT) == 1:
+            GPIO.output(AIRCON_PORT, GPIO.LOW)
+            out += "switch off"
+        if temp > float(settings["temp_max"]) and GPIO.input(AIRCON_PORT) == 0:
+            GPIO.output(AIRCON_PORT, GPIO.HIGH)
+            out += "switch on"
+        return out
+    else:
+        return "Not in auto mode"
 
 if __name__ == "__main__":
    

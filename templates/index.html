@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container" style="width:400px">
+<div class="container" style="width:350px">
 
   <div id="status" style="text-align:center">
   <h3>Temparature: <span id="temp"></span></h3>
@@ -15,6 +15,7 @@
   
   <div id="auto" style="text-align:center">
   <p>Enable autocontrol and leave it alone</p>
+  <p>Current <a href="/setting">setting</a>: {{ settings["temp_min"] }}/{{ settings["temp_max"]}}.</p>
   <p><button id="btn-auto" class="btn btn-large">AutoControl</button></p>
   </div>
   
@@ -62,6 +63,12 @@
       } else {
           $("#btn-aircon").addClass("btn-primary");
       }
+      if (data.auto_mode == 0) {
+          $("#btn-auto").removeClass("btn-primary");
+      } else {
+          $("#btn-auto").addClass("btn-primary");
+      }
+
 
       if (data.temp != null) {
           $("#temp").html(data.temp);
