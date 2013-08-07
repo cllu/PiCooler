@@ -1,1 +1,1 @@
-{"auto_mode": true, "temp_max": "28.5", "temp_min": "27"}
+{"auto_mode": false, "temp_max": "28", "humi_max": "60", "humi_min": "50", "temp_min": "27.3"}

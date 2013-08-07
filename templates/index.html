@@ -9,13 +9,13 @@
   </div>
   
   <div id="buttons" style="text-align:center">
-    <p><button id="btn-light" class="btn btn-large">Light</button><br/></p>
+    <p><button id="btn-humidifier" class="btn btn-large">Humidifier</button><br/></p>
     <p><button id="btn-aircon" class="btn btn-large">AirConditioner</button></p>
   </div>
   
   <div id="auto" style="text-align:center">
   <p>Enable autocontrol and leave it alone</p>
-  <p>Current <a href="/setting">setting</a>: {{ settings["temp_min"] }}/{{ settings["temp_max"]}}.</p>
+  <p>Current <a href="/setting">setting</a>: {{ settings["temp_min"] }}/{{ settings["temp_max"]}}C, {{settings["humi_min"]}}/{{settings["humi_max"]}}%.</p>
   <p><button id="btn-auto" class="btn btn-large">AutoControl</button></p>
   </div>
   
@@ -25,7 +25,7 @@
   updateStatus();
   setInterval(updateStatus, 20000);
   $("#btn-aircon").click(function() {toggleSwitch("aircon")});
-  $("#btn-light").click(function() {toggleSwitch("light")});
+  $("#btn-humidifier").click(function() {toggleSwitch("humidifier")});
   $("#btn-auto").click(function() {toggleSwitch("auto")});
 
   function toggleSwitch(item) {
@@ -54,9 +54,9 @@
   function updateStatus() {
     $.getJSON('/status', function(data) {
       if (data.light == 0) {
-          $("#btn-light").removeClass("btn-primary");
+          $("#btn-humidifier").removeClass("btn-primary");
       } else {
-          $("#btn-light").addClass("btn-primary");
+          $("#btn-humidifier").addClass("btn-primary");
       }
       if (data.aircon == 0) {
           $("#btn-aircon").removeClass("btn-primary");

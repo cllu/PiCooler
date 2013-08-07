@@ -6,9 +6,13 @@
   <form action="/setting" method="POST">
   <label>Min Temp:</label>
   <input name="temp_min" type="text" placeholder="make sure it is valid"value={{ settings["temp_min"] }}>
-
   <label>Max Temp:</label>
   <input name="temp_max" type="text" placeholder="make sure it is valid" value="{{ settings["temp_max"] }}">
+
+  <label>Min Humidity(1-100):</label>
+  <input name="humi_min" type="text" placeholder="make sure it is valid"value={{ settings["humi_min"] }}>
+  <label>Max Humidity:(1-100)</label>
+  <input name="humi_max" type="text" placeholder="make sure it is valid" value="{{ settings["humi_max"] }}">
 
   <button type="submit" class="btn">Save</button>
   </form>
