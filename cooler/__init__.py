@@ -25,7 +25,7 @@ GPIO.setup(AIRCON_PORT, GPIO.OUT)
  
 app = Flask(__name__)
 cur_dir = os.path.dirname(os.path.abspath(__file__))
-dht = os.path.join(cur_dir, "DHT/DHT")
+dht = os.path.join(cur_dir, "../DHT/DHT")
 setting_fname = os.path.join(cur_dir, "settings.json")
 
 from functools import wraps
