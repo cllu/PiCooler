@@ -1,22 +1,24 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container" style="width:350px">
+<div id="main" class="container">
 
-  <div id="status" style="text-align:center">
-  <h3>Temparature: <span id="temp"></span></h3>
+  <h1>PiCooler</h1>
+
+  <div id="status">
+  <h2><span id="temp"></span>°C</2>
   <h3>Humidity: <span id="humidity"></span></h3>
   </div>
   
-  <div id="buttons" style="text-align:center">
-    <p><button id="btn-humidifier" class="btn btn-large">Humidifier</button><br/></p>
-    <p><button id="btn-aircon" class="btn btn-large">AirConditioner</button></p>
+  <div id="switch">
+    <button id="btn-aircon" class="btn btn-default btn-large">Cooler</button>
+    <button id="btn-humidifier" class="btn btn-default btn-large">Humidifier</button>
   </div>
   
-  <div id="auto" style="text-align:center">
-  <p>Enable autocontrol and leave it alone</p>
-  <p>Current <a href="/setting">setting</a>: {{ settings["temp_min"] }}/{{ settings["temp_max"]}}C, {{settings["humi_min"]}}/{{settings["humi_max"]}}%.</p>
-  <p><button id="btn-auto" class="btn btn-large">AutoControl</button></p>
+  <div id="mode">
+    <p>Current <a href="/setting">setting</a>: {{ settings["temp_min"] }}/{{ settings["temp_max"]}}C, {{settings["humi_min"]}}/{{settings["humi_max"]}}%.</p>
+
+    <button id="btn-auto" class="btn btn-default btn-large">AutoControl</button>
   </div>
   
 </div>

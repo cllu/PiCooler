@@ -1,0 +1,38 @@
+#main {
+  text-align: center;
+  width: 350px;
+}
+
+#main h1 {
+  font-size: 24px;
+  color: #BBB;
+  margin: 100px 0 50px 0;
+}
+
+#status {
+  margin: 70px 0;
+}
+
+#status #temp {
+  font-size: 100px;
+}
+
+#status h3 {
+  font-size: 18px;
+}
+
+#switch {
+  margin-top: 100px;
+}
+
+#switch button {
+  width: 100px;
+}
+
+#mode {
+  margin-top: 40px;
+}
+
+#mode p {
+  margin-bottom: 20px;
+}
