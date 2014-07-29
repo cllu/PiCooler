@@ -1,0 +1,4 @@
+*.pyc
+
+DHT/DHT
+DHT/DHT.o
