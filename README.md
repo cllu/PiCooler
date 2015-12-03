@@ -7,6 +7,10 @@ Features:
 - Provide web interface for controlling and settings
 - Both temperature and humidity
 
+Screenshot on iOS:
+
+![Alt text](/screenshot/ios.png?raw=true "iOS screenshot")
+
 ## Dependencies
 
 Python Dependencies (we use Python 2 here):
