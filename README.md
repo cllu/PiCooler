@@ -44,6 +44,12 @@ Install all the dependencies:
 sudo apt-get install python-requests python-flask python-tornado autossh
 ```
 
+Compile the DHT driver:
+
+```bash
+cd DHT && make
+```
+
 Assume the repository is cloned to `/home/pi/PiCooler` folder.
 Add the following entries to root crontab (`sudo crontab -e`):
 
