@@ -30,3 +30,7 @@ To install all the dependencies:
 ```
 sudo apt-get install python-requests python-flask python-tornado autossh
 ```
+
+## License
+
+MIT License
