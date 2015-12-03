@@ -4,7 +4,7 @@ import os
 import re
 import time
 import json
-import subprocess 
+import subprocess
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import RPi.GPIO as GPIO
 
@@ -17,11 +17,12 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(HUMIDIFIER_PORT, GPIO.OUT)
 GPIO.setup(AIRCON_PORT, GPIO.OUT)
- 
+
 app = Flask(__name__)
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 dht = os.path.join(cur_dir, "../DHT/DHT")
 setting_fname = os.path.join(cur_dir, "settings.json")
+
 
 def get_dht(port):
     output = subprocess.check_output([dht, "2302", str(port)])
@@ -38,11 +39,13 @@ def get_dht(port):
     humidity = float(matches.group(1))
 
     return temp, humidity
-    
+
+
 @app.route("/")
 def index():
     settings = json.load(open(setting_fname))
     return render_template("index.html", settings=settings)
+
 
 @app.route("/status")
 def status():
@@ -53,6 +56,7 @@ def status():
                    temp=temp,
                    humidity=humidity,
                    auto_mode=settings["auto_mode"])
+
 
 @app.route("/switch", methods=["POST"])
 def switch():
@@ -77,6 +81,7 @@ def switch():
 
     return jsonify(status="succeed")
 
+
 @app.route("/setting", methods=["GET", "POST"])
 def setting():
     settings = json.load(open(setting_fname))
@@ -96,6 +101,7 @@ def setting():
                    "humi_max": humi_max}, open(setting_fname, 'w'))
         return redirect(url_for("index"))
 
+
 @app.route("/cron")
 def cron():
     """
@@ -104,13 +110,11 @@ def cron():
     settings = json.load(open(setting_fname))
     if settings["auto_mode"]:
         out = ""
-        max_attemp = 7
-        while (max_attemp > 0):
-            max_attemp -= 1
+        for attempt in range(7):
             temp, humidity = get_dht(DHT_PORT)
             if temp and humidity:
                 break
-        if max_attemp == 0:
+        if temp is None or humidity is None:
             return "Cannot get current temperature, exiting."
         out += str(temp) + ',' + str(humidity)
         out += str(settings["temp_min"]) + "," + str(settings["temp_max"])
@@ -134,6 +138,6 @@ def cron():
     else:
         return "Not in auto mode"
 
+
 if __name__ == "__main__":
-   
     app.run(host="0.0.0.0", port=31415)

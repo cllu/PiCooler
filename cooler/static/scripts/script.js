@@ -9,6 +9,7 @@ $(function () {
   updateStatus();
   setInterval(updateStatus, 5000);
 
+  // add click listens for the three toggle switches
   $("#btn-aircon").click(function () {
     toggleSwitch("aircon")
   });

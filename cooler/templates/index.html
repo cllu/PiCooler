@@ -6,20 +6,24 @@
   <h1>PiCooler</h1>
 
   <div id="status">
-  <h2><span id="temp"></span>°C</2>
-  <h3>Humidity: <span id="humidity"></span></h3>
+    <h2><span id="temp"></span>°C</h2>
+
+    <h3>Humidity: <span id="humidity"></span></h3>
   </div>
-  
+
   <div id="switch">
     <button id="btn-aircon" class="btn btn-default btn-large">Cooler</button>
     <button id="btn-humidifier" class="btn btn-default btn-large">Humidifier</button>
   </div>
-  
+
   <div id="mode">
-    <p>Current <a href="/setting">setting</a>: {{ settings["temp_min"] }}/{{ settings["temp_max"]}}°C, {{settings["humi_min"]}}/{{settings["humi_max"]}}%.</p>
+    <p>Current <a href="/setting">setting</a>:
+      {{ settings["temp_min"] }}/{{ settings["temp_max"]}}°C,
+      {{settings["humi_min"]}}/{{settings["humi_max"]}}%.
+    </p>
 
     <button id="btn-auto" class="btn btn-default btn-large">AutoControl</button>
   </div>
-  
+
 </div>
 {% endblock %}

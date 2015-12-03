@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Auto Dorm</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+<head>
+  <title>PiCooler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link href="{{ url_for('static', filename='styles/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet" media="screen">
-    <script src="{{ url_for('static', filename='scripts/jquery-2.1.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
-  </head>
-  <body>
-    {% block content %}
-    {% endblock %}
-  </body>
+  <link href="{{ url_for('static', filename='styles/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+  <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet" media="screen">
+  <script src="{{ url_for('static', filename='scripts/jquery-2.1.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</head>
+<body>
+{% block content %}
+{% endblock %}
+</body>
 </html>
 
