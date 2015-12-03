@@ -9,7 +9,9 @@ Features:
 
 Screenshot on iOS:
 
-![Alt text](/screenshot/ios.png?raw=true "iOS screenshot")
+<p align="center">
+  <img src="https://raw.githubusercontent.com/cllu/PiCooler/master/screenshot/ios.png" width="300"/>
+</p>
 
 ## Dependencies
 
